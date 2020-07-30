@@ -2,6 +2,15 @@ import tensorflow as tf
 import makeDataset
 
 tf.compat.v1.disable_eager_execution()
+import argparse
+
+#设置参数
+ap = argparse.ArgumentParser()
+ap.add_argument("-e", "--epoch", required=True, default=5,help="path to the input image")
+
+args = vars(ap.parse_args())
+
+
 
 root_path = "./summary1860/"
 # 输入数据已经转换成了单词编号的格式。
@@ -22,7 +31,7 @@ TRG_VOCAB_SIZE = 4000
 # 训练数据batch的大小
 BATCH_SIZE = 100
 # 使用训练数据的轮数
-NUM_EPOCH = 5
+NUM_EPOCH = args['epoch']
 # 节点不被dropout的概率
 KEEP_PROB = 0.8
 # 用于控制梯度膨胀的梯度大小上限
