@@ -6,7 +6,7 @@ import os
 parser = argparse.ArgumentParser(description='')
 
 # 原参数路径
-parser.add_argument("--checkpoint_path", default='./summary1860/seq2seq_ckpt-0', help="restore ckpt")
+parser.add_argument("--checkpoint_path", default='./summary1860/seq2seq_ckpt', help="restore ckpt")
 # 新参数保存路径
 parser.add_argument("--new_checkpoint_path", default='./new_ckpt', help="path_for_new ckpt")
 # 新参数名称中加入的前缀名
