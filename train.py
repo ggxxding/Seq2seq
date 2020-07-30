@@ -31,7 +31,7 @@ TRG_VOCAB_SIZE = 4000
 # 训练数据batch的大小
 BATCH_SIZE = 100
 # 使用训练数据的轮数
-NUM_EPOCH = args['epoch']
+NUM_EPOCH = int(args['epoch'])
 # 节点不被dropout的概率
 KEEP_PROB = 0.8
 # 用于控制梯度膨胀的梯度大小上限
