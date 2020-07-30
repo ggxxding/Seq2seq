@@ -6,10 +6,9 @@ import argparse
 
 #设置参数
 ap = argparse.ArgumentParser()
-ap.add_argument("-e", "--epoch", required=True, default=5,help="path to the input image")
-
+ap.add_argument("-e", "--epoch", type=int,required=True, default=5,help="num of epoch")
 args = vars(ap.parse_args())
-
+print(args['epoch'],type(args['epoch']))
 
 
 root_path = "./summary1860/"
@@ -122,7 +121,7 @@ def run_epoch(session, cost_op, train_op, saver, step):
                 print("After %d steps, per token cost is %.3f" % (step, cost))
             # 每200步保存一个checkoutpoint
             if step % 200 == 0:
-                saver.save(session, CHECKPOINT_PATH, global_step=step)
+                saver.save(session, CHECKPOINT_PATH)
             step += 1
         except tf.errors.OutOfRangeError:
             break
