@@ -6,7 +6,7 @@ import argparse
 
 #设置参数
 ap = argparse.ArgumentParser()
-ap.add_argument("--epoch", type=int,required=True, default=5,help="num of epoch")
+ap.add_argument("--epoch", type=int,required=False, default=5,help="num of epoch")
 args = vars(ap.parse_args())
 
 
@@ -115,7 +115,8 @@ def run_epoch(session, cost_op, train_op, saver, step):
     while True:
         try:
             # 运行train_op并计算损失值。训练数据在main()函数中以Dataset方式提供
-            cost, _ = session.run([cost_op, train_op])
+            cost, _= session.run([cost_op, train_op])
+
             if step % 10 == 0:
                 print("After %d steps, per token cost is %.3f" % (step, cost))
             # 每200步保存一个checkoutpoint
@@ -135,23 +136,23 @@ def main():
     with tf.compat.v1.variable_scope("nmt_model", reuse=None, initializer=initializer):
         train_model = NMTModel()
 
-    # 定义输入数据
-    data = makeDataset.MakeSrcTrgDataset(SRC_TRAIN_DATA, TRG_TRAIN_DATA, BATCH_SIZE)
-    iterator = tf.compat.v1.data.make_initializable_iterator(data)
-    (src, src_size), (trg_input, trg_label, trg_size) = iterator.get_next()
+        # 定义输入数据                               en.number,zh.number,
+        data = makeDataset.MakeSrcTrgDataset(SRC_TRAIN_DATA, TRG_TRAIN_DATA, BATCH_SIZE)
+        iterator = tf.compat.v1.data.make_initializable_iterator(data)
+        (src, src_size), (trg_input, trg_label, trg_size) = iterator.get_next()
 
-    # 定义输入数据
-    cost_op, train_op = train_model.forward(src, src_size, trg_input, trg_label, trg_size)
+        # 定义输入数据
+        cost_op, train_op = train_model.forward(src, src_size, trg_input, trg_label, trg_size)
 
-    # 训练模型
-    saver = tf.compat.v1.train.Saver()
-    step = 0
-    with tf.compat.v1.Session() as sess:
-        tf.compat.v1.global_variables_initializer().run()
-        for i in range(NUM_EPOCH):
-            print("In iteration: %d" % (i + 1))
-            sess.run(iterator.initializer)
-            step = run_epoch(sess, cost_op, train_op, saver, step)
+        # 训练模型
+        saver = tf.compat.v1.train.Saver()
+        step = 0
+        with tf.compat.v1.Session() as sess:
+            tf.compat.v1.global_variables_initializer().run()
+            for i in range(NUM_EPOCH):
+                print("In iteration: %d" % (i + 1))
+                sess.run(iterator.initializer)
+                step = run_epoch(sess, cost_op, train_op, saver, step)
 
 
 if __name__ == "__main__":

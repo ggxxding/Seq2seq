@@ -22,14 +22,14 @@ def MakeDataset(file_path):
 # 从源语言文件src_path和目标语言文件trg_path中分别读取数据，并进行填充和batching操作
 def MakeSrcTrgDataset(src_path, trg_path, batch_size):
     # 首先分别读取源语言数据和目标语言数据。
-    src_data = MakeDataset(src_path)
-    trg_data = MakeDataset(trg_path)
+    src_data = MakeDataset(src_path)#(sentence,size)
+    trg_data = MakeDataset(trg_path)#(sentence,size)
     # 通过zip操作将两个Dataset合并为一个Dataset。现在每个Dataset中每一项数据ds由4个张量组成。
     #   ds[0][0]是源句子
     #   ds[0][1]是源句子长度
     #   ds[1][0]是目标句子
     #   ds[1][1]是目标句子长度
-    dataset = tf.data.Dataset.zip((src_data, trg_data))
+    dataset = tf.data.Dataset.zip((src_data, trg_data))#[]
 
     # 删除内容为空（只包含<eos>和<sos>）的句子和长度过长的句子
     def FileterLength(src_tuple, trg_tuple):

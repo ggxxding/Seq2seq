@@ -10,7 +10,8 @@ args = vars(ap.parse_args())
 
 
 # 读取checkpoint的路径。9000表示是训练程序在第9000步保存的checkpoint
-CHECKPOINT_PATH = "./new_ckpt/new_seq2seq_ckpt"
+CHECKPOINT_PATH = "./summary1860/seq2seq_ckpt"
+#CHECKPOINT_PATH = "./new_ckpt/new_seq2seq_ckpt"
 
 # 模型参数。必须与训练时的模型参数保持一致。
 # LSTM的隐藏层规模
