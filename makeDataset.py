@@ -6,15 +6,12 @@ MAX_LEN = 50
 # 目标语言词汇表中<sos>的ID
 SOS_ID = 1
 
-
 # 使用Dataset从一个文件中读取一个语言的数据
 # 数据的格式为每行一句话，单词已经转化为单词的编号
 def MakeDataset(file_path):
     dataset = tf.data.TextLineDataset(file_path)
     # 根据空格将单词编号切分开并放入一个一维向量
-    print(dataset)
     dataset = dataset.map(lambda string: tf.compat.v1.string_split([string]).values)
-    print(dataset)
     # 将字符串形式的单词编号转化为整数
     dataset = dataset.map(lambda string: tf.compat.v1.string_to_number(string, tf.int32))
     # 统计每个句子的单词数量，并与句子内容一起放入Dataset中。

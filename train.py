@@ -6,9 +6,8 @@ import argparse
 
 #设置参数
 ap = argparse.ArgumentParser()
-ap.add_argument("-e", "--epoch", type=int,required=True, default=5,help="num of epoch")
+ap.add_argument("--epoch", type=int,required=True, default=5,help="num of epoch")
 args = vars(ap.parse_args())
-print(args['epoch'],type(args['epoch']))
 
 
 root_path = "./summary1860/"

@@ -1,6 +1,14 @@
 import tensorflow as tf
 import codecs
 tf.compat.v1.disable_eager_execution()
+import argparse
+
+#设置参数
+ap = argparse.ArgumentParser()
+ap.add_argument("--input", type=str, default="This is a test .",help="translate English to Chinese")
+args = vars(ap.parse_args())
+
+
 # 读取checkpoint的路径。9000表示是训练程序在第9000步保存的checkpoint
 CHECKPOINT_PATH = "./new_ckpt/new_seq2seq_ckpt"
 
@@ -93,7 +101,7 @@ def main():
     with tf.compat.v1.variable_scope("nmt_model", reuse=None):
         model = NMTModel()
         # 定义一个测试的例子
-        test_sentence = "This is a test ."
+        test_sentence = args['input']
         print(test_sentence)
 
         # 根据英文词汇表，将测试句子转为单词ID。结尾加上<eos>的编号
